@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc, doc, deleteDoc, orderBy, query } from "firebase/firestore";
 import { auth, db } from "../FirebaseConfig";
 
 export const authContext = createContext();
@@ -15,6 +15,10 @@ export const useAuth = () => {
   if (!context) throw Error("Ther is no auth provider");
   return context;
 };
+
+const refreshPage = () => {
+  window.location.reload(false);
+}
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
@@ -31,6 +35,26 @@ export function AuthProvider({ children }) {
 
     const logout = () => signOut(auth);
 
+    const addPaciente = async (nombre, apellido, edad, sexo, nacimiento, direccion, telefono, sintomas) => {
+        await addDoc(
+          pacientesCollectionRef,
+          {nombre,
+          apellido,
+          edad,
+          sexo,
+          nacimiento,
+          direccion,
+          telefono,
+          sintomas}
+        );
+    }
+
+    const deletePaciente = async (id) => {
+        const pacienteDoc = doc(db, "pacientes", id);
+        await deleteDoc(pacienteDoc);
+        refreshPage();
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
@@ -41,8 +65,10 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
       
+        const que = query(pacientesCollectionRef, orderBy("apellido"))
+
         const getPacientes = async () => {
-            const data = await getDocs(pacientesCollectionRef);
+            const data = await getDocs(que);
             setPacientes(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
         }
         getPacientes();
@@ -50,8 +76,19 @@ export function AuthProvider({ children }) {
     
 
     return (
-        <authContext.Provider value={{ signUp, login, user, logout, loading, pacientes }}>
+      <authContext.Provider
+        value={{
+          signUp,
+          login,
+          user,
+          logout,
+          loading,
+          pacientes,
+          addPaciente,
+          deletePaciente,
+        }}
+      >
         {children}
-        </authContext.Provider>
+      </authContext.Provider>
     );
 }

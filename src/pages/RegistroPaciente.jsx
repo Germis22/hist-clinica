@@ -1,9 +1,12 @@
+import { async } from "@firebase/util";
 import React from "react";
 import { useState } from "react";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Registros = () => {
 
-  const [user, setUser] = useState({
+  const [paciente, setPaciente] = useState({
     nombre: "",
     apellido: "",
     edad: "",
@@ -14,16 +17,54 @@ const Registros = () => {
     sintomas: ""
   });
 
+  const [error, setError] = useState()
+
+  const {addPaciente} = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleChange = ({target: {id, value}}) => {
+    setPaciente({ ...paciente, [id]: value });
+  }
+
+  const refreshPage = () => {
+    window.location.reload(false);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+    try {
+      await addPaciente(
+        paciente.nombre,
+        paciente.apellido,
+        paciente.edad,
+        paciente.sexo,
+        paciente.nacimiento,
+        paciente.direccion,
+        paciente.telefono,
+        paciente.sintomas
+      );
+      navigate('/pacientes')
+      refreshPage()
+    } catch (error) {
+      setError(error)
+    }
+    console.log(error);
+  }
+
   return (
     <div className="flex justify-center items-center h-full my-10">
-      <form className="bg-base-200 py-10 px-5 lg:w-2/4 md:w-4/5 w-full mx-2 rounded-lg shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-base-200 py-10 px-5 lg:w-2/4 md:w-4/5 w-full mx-2 rounded-lg shadow-lg"
+      >
         <p className=" text-2xl font-bold text-center mb-10">
           Registrar {""}
           <span className=" text-info font-bold">Nuevo Paciente</span>
         </p>
 
         <div className="lg:w-4/5 md:w-full m-auto">
-
           <div className="mb-5">
             <label htmlFor="nombre" className="block font-bold uppercase">
               Nombre
@@ -32,6 +73,7 @@ const Registros = () => {
               id="nombre"
               type="text"
               placeholder="Nombre del Paciente"
+              onChange={handleChange}
               className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
             />
           </div>
@@ -44,6 +86,7 @@ const Registros = () => {
               id="apellido"
               type="text"
               placeholder="Apellido del Paciente"
+              onChange={handleChange}
               className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
             />
           </div>
@@ -56,6 +99,7 @@ const Registros = () => {
               id="edad"
               type="text"
               placeholder="Edad"
+              onChange={handleChange}
               className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
             />
           </div>
@@ -67,9 +111,12 @@ const Registros = () => {
             <select
               id="sexo"
               defaultValue=""
-              className="border-2 w-full p-2 mt-2"
+              onChange={handleChange}
+              className="border-2 w-full p-2 mt-2 text-black"
             >
-              <option value="" disabled>Seleccione el sexo</option>
+              <option value="" disabled>
+                Seleccione el sexo
+              </option>
               <option>Masculino</option>
               <option>Femenino</option>
             </select>
@@ -84,6 +131,7 @@ const Registros = () => {
               type="date"
               max={new Date().toISOString().split("T")[0]}
               placeholder="Nombre del Paciente"
+              onChange={handleChange}
               className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
             />
           </div>
@@ -96,6 +144,7 @@ const Registros = () => {
               id="direccion"
               type="text"
               placeholder="Dirección del domicilio"
+              onChange={handleChange}
               className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
             />
           </div>
@@ -108,6 +157,7 @@ const Registros = () => {
               id="telefono"
               type="tel"
               placeholder="Ex. 76543210"
+              onChange={handleChange}
               className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
             />
           </div>
@@ -120,22 +170,19 @@ const Registros = () => {
               id="sintomas"
               type="text"
               placeholder="Sintomas del Paciente"
+              onChange={handleChange}
               className="border-2 w-full p-2 mt-2 h-56 text-black placeholder:text-gray-400 rounded-md"
             />
           </div>
-
-
         </div>
 
         <div className=" lg:w-2/5 md:w-full m-auto">
-          <button
+          <input
             type="submit"
+            value={"Registrar Paciente"}
             className=" bg-info w-full p-3 mt-2 text-white uppercase font-bold hover:bg-primary-focus cursor-pointer transition-all rounded-md"
-          >
-            Registrar paciente
-          </button>
+          />
         </div>
-
       </form>
     </div>
   );
