@@ -35,8 +35,8 @@ const DeletePaciente = (paciente) => {
           <h3 className="font-bold text-lg">
             Eliminar Paciente!
           </h3>
-          <p className="py-4 overflow-auto">
-            Está seguro que desea eliminar este paciente: <span className="font-bold">{paciente.paciente.nombre} {paciente.paciente.apellido}</span> ?
+          <p className="py-4 flex flex-wrap">
+            Está seguro que desea eliminar este paciente: <span className="font-bold sm:ml-1">{paciente.paciente.nombre} {paciente.paciente.apellido}</span> ?
           </p>
 
           <div className="flex sm:justify-end justify-center">

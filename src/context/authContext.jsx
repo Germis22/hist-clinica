@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { collection, getDocs, addDoc, doc, deleteDoc, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, addDoc, doc, deleteDoc, orderBy, query, updateDoc } from "firebase/firestore";
 import { auth, db } from "../FirebaseConfig";
 
 export const authContext = createContext();
@@ -49,6 +49,21 @@ export function AuthProvider({ children }) {
         );
     }
 
+    const updatePaciente = async (id, nombre, apellido, edad, sexo, nacimiento, direccion, telefono, sintomas) => {
+      const pacienteDoc = doc(db, "pacientes", id);
+      const newFields = {
+        nombre: nombre,
+        apellido: apellido,
+        edad: edad,
+        sexo: sexo,
+        nacimiento: nacimiento,
+        direccion: direccion,
+        telefono: telefono,
+        sintomas: sintomas,
+      };
+      await updateDoc(pacienteDoc, newFields)
+    }
+
     const deletePaciente = async (id) => {
         const pacienteDoc = doc(db, "pacientes", id);
         await deleteDoc(pacienteDoc);
@@ -86,6 +101,7 @@ export function AuthProvider({ children }) {
           pacientes,
           addPaciente,
           deletePaciente,
+          updatePaciente,
         }}
       >
         {children}

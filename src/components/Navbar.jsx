@@ -66,11 +66,11 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <label class="swap swap-rotate mx-3">
+        <label className="swap swap-rotate mx-3">
           <input data-act-class="ACTIVECLASS"  type="checkbox" />
 
           <svg
-            class="swap-on swap-active fill-current w-7 h-7"
+            className="swap-on swap-active fill-current w-7 h-7"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             data-set-theme="light"
@@ -79,7 +79,7 @@ const Navbar = () => {
           </svg>
 
           <svg
-            class="swap-off swap-active fill-current w-7 h-7"
+            className="swap-off swap-active fill-current w-7 h-7"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             data-set-theme="dark"

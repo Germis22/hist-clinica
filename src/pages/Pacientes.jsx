@@ -6,18 +6,18 @@ import DeletePaciente from '../components/DeletePaciente'
 
 const Pacientes = () => {
 
-  const { pacientes, deletePaciente } = useAuth()
+  const { pacientes} = useAuth()
 
   return (
     <div className='flex justify-center items-center h-full my-10'>
       <div
         className="overflow-x-auto lg:w-5/6 sm:w-full bg-base-200 rounded-lg shadow-lg"
       >
-        <table className="table w-full">
-          <thead>
+        <table className="table relative w-full">
+          <thead className="sticky top-0">
             <tr>
-              <th >Nombre</th>
-              <th>Edad</th>
+              <th>Nombre</th>
+              <th >Edad</th>
               <th>Sexo</th>
               <th>Fec. Nacimiento</th>
               <th></th>
@@ -25,10 +25,10 @@ const Pacientes = () => {
           </thead>
 
           <tbody>
-          {pacientes.map((paciente) => {
+          {pacientes.map((paciente, i) => {
             
             return (
-              <tr>
+              <tr key={i}>
                 <th>
                   <div className="font-bold">
                     {paciente.nombre} {paciente.apellido}
@@ -47,7 +47,7 @@ const Pacientes = () => {
 
                   <br />
 
-                  <EditPaciente />
+                  <EditPaciente patient={paciente} />
 
                   <DeletePaciente paciente={paciente}/>
 

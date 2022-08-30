@@ -1,10 +1,60 @@
-import React from 'react'
+import { useState } from 'react'
+import { useAuth } from '../context/authContext';
+import FormEditPaciente from './FormEditPaciente'
 
-const EditPaciente = () => {
+const EditPaciente = (patient) => {
+
+  const pacienteId = patient.patient.id
+
+  const [paciente, setPaciente] = useState({
+    nombre: patient.patient.nombre,
+    apellido: patient.patient.apellido,
+    edad: patient.patient.edad,
+    sexo: patient.patient.sexo,
+    nacimiento: patient.patient.nacimiento,
+    direccion: patient.patient.direccion,
+    telefono: patient.patient.telefono,
+    sintomas: patient.patient.sintomas
+    });
+
+    const [error, setError] = useState()
+
+    const {updatePaciente} = useAuth();
+
+    const handleChange = ({target: {id, value}}) => {
+    setPaciente({ ...paciente, [id]: value });
+    }
+
+    const refreshPage = () => {
+      window.location.reload(false);
+    }
+
+    const handleUpdate = async (e) => {
+        e.preventDefault()
+        setError('')
+        try {
+          await updatePaciente(
+            pacienteId,
+            paciente.nombre,
+            paciente.apellido,
+            paciente.edad,
+            paciente.sexo,
+            paciente.nacimiento,
+            paciente.direccion,
+            paciente.telefono,
+            paciente.sintomas
+          );
+          refreshPage()
+        } catch (error) {
+          setError(error)
+        }
+        console.log(error);
+      }
+
   return (
     <>
       <label
-        htmlFor="edit"
+        htmlFor={`${pacienteId}-edit`}
         className="btn btn-square modal-button btn-sm mx-2"
       >
         <svg
@@ -23,21 +73,156 @@ const EditPaciente = () => {
         </svg>
       </label>
 
-      <input type="checkbox" id="edit" className="modal-toggle" />
+      <input type="checkbox" id={`${pacienteId}-edit`} className="modal-toggle" />
       <div className="modal">
         <div className="modal-box w-11/12 max-w-5xl">
-          <h3 className="font-bold text-lg">
-            Congratulations random Internet user!
-          </h3>
-          <p className="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-          <div className="modal-action">
-            <label htmlFor="edit" className="btn">
-              Yay!
-            </label>
+
+          {/* <FormEditPaciente /> */}
+          {/* --------------------------------------------- */}
+          <div className="flex justify-center items-center h-full my-10">    
+            <form
+              className="w-full"
+            >
+              <p className=" text-2xl font-bold text-center mb-10 flex justify-center flex-wrap">
+                Editar Información {""}
+                <span className=" text-info font-bold sm:ml-2">del Paciente</span>
+              </p>
+
+              <div className="lg:w-4/5 md:w-full m-auto">
+                <div className="mb-5">
+                  <label htmlFor="nombre" className="block font-bold uppercase">
+                    Nombre
+                  </label>
+                  <input
+                    id="nombre"
+                    type="text"
+                    placeholder="Nombre del Paciente"
+                    value={paciente.nombre}
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="apellido" className="block font-bold uppercase">
+                    Apellido
+                  </label>
+                  <input
+                    id="apellido"
+                    type="text"
+                    placeholder="Apellido del Paciente"
+                    value={paciente.apellido}
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="edad" className="block font-bold uppercase">
+                    Edad
+                  </label>
+                  <input
+                    id="edad"
+                    type="text"
+                    placeholder="Edad"
+                    value={paciente.edad}
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="sexo" className="block font-bold uppercase">
+                    Sexo
+                  </label>
+                  <select
+                    id="sexo"
+                    defaultValue={paciente.sexo}
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 text-black"
+                  >
+                    <option value="" disabled>
+                      Seleccione el sexo
+                    </option>
+                    <option>Masculino</option>
+                    <option>Femenino</option>
+                  </select>
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="nacimiento" className="block font-bold uppercase">
+                    Fecha de Nacimiento
+                  </label>
+                  <input
+                    id="nacimiento"
+                    type="date"
+                    max={new Date().toISOString().split("T")[0]}
+                    placeholder="Nombre del Paciente"
+                    value={paciente.nacimiento}
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="direccion" className="block font-bold uppercase">
+                    Dirección
+                  </label>
+                  <input
+                    id="direccion"
+                    type="text"
+                    placeholder="Dirección del domicilio"
+                    value={paciente.direccion}
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="telefono" className="block font-bold uppercase">
+                    Teléfono
+                  </label>
+                  <input
+                    id="telefono"
+                    type="tel"
+                    placeholder="Ex. 76543210"
+                    value={paciente.telefono}
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="sintomas" className="block font-bold uppercase">
+                    Síntomas
+                  </label>
+                  <textarea
+                    id="sintomas"
+                    type="text"
+                    placeholder="Sintomas del Paciente"
+                    value={paciente.sintomas}
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 h-56 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
+              </div>
+            </form>
           </div>
+          {/* --------------------------------------------- */}
+
+          <div className="flex justify-end">
+            <div className="modal-action mr-5">
+              <label htmlFor={`${pacienteId}-edit`} className="btn" onClick={handleUpdate}>
+                Guardar
+              </label>
+            </div>
+            <div className="modal-action">
+              <label htmlFor={`${pacienteId}-edit`} className="btn">
+                Cancelar
+              </label>
+            </div>
+          </div>
+
         </div>
       </div>
     </>
