@@ -33,7 +33,8 @@ const DeletePaciente = (paciente) => {
       <div className="modal">
         <div className="modal-box w-11/12 max-w-5xl">
           <h3 className="font-bold text-lg">
-            Eliminar Paciente!
+            Eliminar {""}
+            <span className=" text-info font-bold">Paciente!</span>
           </h3>
           <p className="py-4 flex flex-wrap">
             Está seguro que desea eliminar este paciente: <span className="font-bold sm:ml-1">{paciente.paciente.nombre} {paciente.paciente.apellido}</span> ?

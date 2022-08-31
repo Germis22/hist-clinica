@@ -210,7 +210,7 @@ const EditPaciente = (patient) => {
           </div>
           {/* --------------------------------------------- */}
 
-          <div className="flex justify-end">
+          <div className="flex sm:justify-end justify-center">
             <div className="modal-action mr-5">
               <label htmlFor={`${pacienteId}-edit`} className="btn" onClick={handleUpdate}>
                 Guardar

@@ -8,6 +8,7 @@ const Pacientes = () => {
 
   const { pacientes} = useAuth()
 
+
   return (
     <div className='flex justify-center items-center h-full my-10'>
       <div
@@ -26,7 +27,6 @@ const Pacientes = () => {
 
           <tbody>
           {pacientes.map((paciente, i) => {
-            
             return (
               <tr key={i}>
                 <th>
@@ -43,7 +43,7 @@ const Pacientes = () => {
                 <td>
                   <InfoPaciente paciente={paciente}/>                 
 
-                  <AddSintoma/>
+                  <AddSintoma patient={paciente}/>
 
                   <br />
 

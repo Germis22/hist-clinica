@@ -38,14 +38,17 @@ export function AuthProvider({ children }) {
     const addPaciente = async (nombre, apellido, edad, sexo, nacimiento, direccion, telefono, sintomas) => {
         await addDoc(
           pacientesCollectionRef,
-          {nombre,
-          apellido,
-          edad,
-          sexo,
-          nacimiento,
-          direccion,
-          telefono,
-          sintomas}
+          {
+            nombre,
+            apellido,
+            edad,
+            sexo,
+            nacimiento,
+            direccion,
+            telefono,
+            sintomas,
+            timestamp: Date.now(),
+          } 
         );
     }
 
@@ -59,6 +62,14 @@ export function AuthProvider({ children }) {
         nacimiento: nacimiento,
         direccion: direccion,
         telefono: telefono,
+        sintomas: sintomas,
+      };
+      await updateDoc(pacienteDoc, newFields)
+    }
+
+    const addSintoma = async (id, sintomas) => {
+      const pacienteDoc = doc(db, "pacientes", id);
+      const newFields = {
         sintomas: sintomas,
       };
       await updateDoc(pacienteDoc, newFields)
@@ -102,6 +113,7 @@ export function AuthProvider({ children }) {
           addPaciente,
           deletePaciente,
           updatePaciente,
+          addSintoma
         }}
       >
         {children}

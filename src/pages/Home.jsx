@@ -23,7 +23,7 @@ const Home = () => {
               Administra tu consultorio de la mejor manera.<br/>
               Registra nuevos pacientes, edita sus datos, agrega síntomas y mucho más.
             </p>
-            <button className="btn btn-primary" onClick={()=> navigate('registros')}>comienza ya!</button>
+            <button className="btn" onClick={()=> navigate('registros')}>comienza ya!</button>
           </div>
         </div>
       </div>

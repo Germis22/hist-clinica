@@ -5,6 +5,8 @@ const FormInfoPaciente = (paciente) => {
 
     const patient = paciente.paciente.paciente
 
+    const date = new Date(patient.timestamp).toLocaleDateString()
+
   return (
     <div className="flex justify-center items-center h-full my-10">    
       <form
@@ -123,7 +125,7 @@ const FormInfoPaciente = (paciente) => {
               id="sintomas"
               type="text"
               placeholder="Sintomas del Paciente"
-              value={patient.sintomas}
+              value={date + ": " +patient.sintomas}
               disabled
               className="border-2 w-full p-2 mt-2 h-56 text-black placeholder:text-gray-400 rounded-md"
             />

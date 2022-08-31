@@ -1,9 +1,50 @@
-import React from 'react'
+import { useState } from 'react'
+import { useAuth } from '../context/authContext';
 
-const AddSintoma = () => {
+const AddSintoma = (patient) => {
+
+  const pacienteId = patient.patient.id
+  const actualSintoma = patient.patient.sintomas
+
+  const [paciente, setPaciente] = useState({
+    regSintoma: "",
+    sintomas: ""
+    });
+
+  const date = new Date(paciente.regSintoma).toLocaleDateString('es-ES', {timeZone: 'UTC'})
+
+  const totalSintomas = actualSintoma + "\n\n" + date + ": " + paciente.sintomas;
+
+  const [error, setError] = useState()
+
+  const {addSintoma} = useAuth();
+
+  const handleChange = ({target: {id, value}}) => {
+  setPaciente({ ...paciente, [id]: value });
+  }
+
+  const refreshPage = () => {
+    window.location.reload(false);
+  }
+
+  const handleUpdate = async (e) => {
+    e.preventDefault()
+    setError('')
+    try {
+      await addSintoma(
+        pacienteId,
+        totalSintomas
+      );
+      refreshPage()
+    } catch (error) {
+      setError(error)
+    }
+    console.log(error);
+  }
+
   return (
     <>
-      <label htmlFor="add" className="btn btn-square btn-sm">
+      <label htmlFor={`${pacienteId}-add`} className="btn btn-square btn-sm">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -20,21 +61,63 @@ const AddSintoma = () => {
         </svg>
       </label>
 
-      <input type="checkbox" id="add" className="modal-toggle" />
+      <input type="checkbox" id={`${pacienteId}-add`} className="modal-toggle" />
       <div className="modal">
         <div className="modal-box w-11/12 max-w-5xl">
-          <h3 className="font-bold text-lg">
-            Congratulations random Internet user!
-          </h3>
-          <p className="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-          <div className="modal-action">
-            <label htmlFor="add" className="btn">
-              Yay!
-            </label>
+        <div className="flex justify-center items-center h-full my-10">    
+          <form
+            className="w-full"
+          >
+            <p className=" text-2xl font-bold text-center mb-10 ">
+              Agregar Nuevo {""}
+              <span className=" text-info font-bold">Síntoma</span>
+            </p>
+
+            <div className="lg:w-4/5 md:w-full m-auto">
+
+              <div className="mb-5">
+                <label htmlFor="regSintoma" className="block font-bold uppercase">
+                  Fecha de Registro
+                </label>
+                <input
+                  id="regSintoma"
+                  type="date"
+                  max={new Date().toISOString().split("T")[0]}
+                  placeholder="Fecha de Registro"
+                  onChange={handleChange}
+                  className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
+                />
+              </div>
+              
+              <div className="mb-5">
+                <label htmlFor="sintomas" className="block font-bold uppercase">
+                  Síntomas
+                </label>
+                <textarea
+                  id="sintomas"
+                  type="text"
+                  placeholder="Sintomas del Paciente"
+                  onChange={handleChange}
+                  className="border-2 w-full p-2 mt-2 h-56 text-black placeholder:text-gray-400 rounded-md"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div className="flex sm:justify-end justify-center">
+            <div className="modal-action mr-5">
+              <label htmlFor={`${pacienteId}-add`} className="btn" onClick={handleUpdate}>
+                Guardar
+              </label>
+            </div>
+            <div className="modal-action">
+              <label htmlFor={`${pacienteId}-add`} className="btn">
+                Cancelar
+              </label>
+            </div>
           </div>
+
         </div>
       </div>
     </>
