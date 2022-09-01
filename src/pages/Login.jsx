@@ -25,7 +25,7 @@ const Login = () => {
     setError("");
     try {
       await login(user.email, user.password);
-      navigate("/hist-clinica");
+      navigate("/");
     } catch (error) {
       console.log(error.code);
       console.log(error.message);

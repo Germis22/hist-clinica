@@ -50,7 +50,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl" href="/hist-clinica">
+        <a className="btn btn-ghost normal-case text-xl" href="/">
           Historia Clinica
         </a>
       </div>
