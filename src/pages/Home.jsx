@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router";
+import BG from "../assets/african-american-doctor-with-face-mask-examining-boy-s-throat-during-home-visit.jpg"
 
 const Home = () => {
   const { user, loading } = useAuth();

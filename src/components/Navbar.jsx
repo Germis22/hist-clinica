@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useAuth } from '../context/authContext'
 import { useNavigate } from 'react-router-dom'
 import { themeChange } from 'theme-change'
+import Avatar from '../assets/114296311-icono-de-avatar-de-doctor-logotipo-de-profesión-personaje-masculino-un-hombre-con-ropa-profesional-e.jpg'
 
 const Navbar = () => {
 
@@ -91,7 +92,7 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="src\assets\114296311-icono-de-avatar-de-doctor-logotipo-de-profesión-personaje-masculino-un-hombre-con-ropa-profesional-e.jpg" />
+              <img src={Avatar} />
             </div>
           </label>
           <ul
