@@ -120,7 +120,7 @@ const PacientePDF = (paciente) => {
 
     }
 
-    pdfMake.createPdf(docDefinition).download();
+    pdfMake.createPdf(docDefinition).open();
 
 }
 
