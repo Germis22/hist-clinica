@@ -14,7 +14,7 @@ const Home = () => {
     <>
       <div
         className="hero min-h-screen fixed"
-        style={{backgroundImage: "url(src/assets/african-american-doctor-with-face-mask-examining-boy-s-throat-during-home-visit.jpg)"}}
+        // style={{backgroundImage: "url(src/assets/african-american-doctor-with-face-mask-examining-boy-s-throat-during-home-visit.jpg)"}}
       >
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
