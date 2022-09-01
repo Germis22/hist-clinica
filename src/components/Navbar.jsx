@@ -91,7 +91,7 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="https://placeimg.com/80/80/people" />
+              <img src="src\assets\114296311-icono-de-avatar-de-doctor-logotipo-de-profesión-personaje-masculino-un-hombre-con-ropa-profesional-e.jpg" />
             </div>
           </label>
           <ul

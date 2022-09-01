@@ -3,6 +3,7 @@ import EditPaciente from '../components/EditPaciente'
 import InfoPaciente from '../components/InfoPaciente'
 import AddSintoma from '../components/AddSintoma'
 import DeletePaciente from '../components/DeletePaciente'
+import ReportePaciente from '../components/ReportePaciente'
 
 const Pacientes = () => {
 
@@ -40,16 +41,22 @@ const Pacientes = () => {
 
                 <td>{paciente.nacimiento}</td>
 
-                <td>
+                <td className="py-2">
+                  
                   <InfoPaciente paciente={paciente}/>                 
 
                   <AddSintoma patient={paciente}/>
+
+                  <ReportePaciente paciente={paciente}/>
 
                   <br />
 
                   <EditPaciente patient={paciente} />
 
                   <DeletePaciente paciente={paciente}/>
+                  <div>
+                    
+                  </div>
 
                 </td>
               </tr>
