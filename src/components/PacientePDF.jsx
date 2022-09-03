@@ -1,5 +1,5 @@
 import React from 'react'
-import pdfMake from "pdfmake/build/pdfmake";
+import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 
 const PacientePDF = (paciente) => {
@@ -120,8 +120,10 @@ const PacientePDF = (paciente) => {
 
     }
 
+    const pdfFile = pdfMake.createPdf(docDefinition, null, null, pdfFonts.pdfMake.vfs);
+
     //pdfMake.createPdf(docDefinition).open();
-    pdfMake.createPdf(docDefinition).download(`${paciente.apellido} ${paciente.nombre}-histClinica.pdf`);
+    pdfFile.download(`${paciente.apellido} ${paciente.nombre}-histClinica.pdf`);
     
 }
 
