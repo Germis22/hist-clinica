@@ -120,8 +120,9 @@ const PacientePDF = (paciente) => {
 
     }
 
-    pdfMake.createPdf(docDefinition).open();
-
+    //pdfMake.createPdf(docDefinition).open();
+    pdfMake.createPdf(docDefinition).download(`${paciente.apellido} ${paciente.nombre}-histClinica.pdf`);
+    
 }
 
 export default PacientePDF
