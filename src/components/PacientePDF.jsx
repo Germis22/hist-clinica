@@ -24,7 +24,6 @@ const PacientePDF = (paciente) => {
             text: 'Dr. Germán Paz Olavarría',
             fontSize: 15,
             bold: true,
-            italics: true,
             color: '#0F3460',
             alignment: 'right',
             margin: [0, 0, 0, 5]
