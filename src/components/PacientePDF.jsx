@@ -119,10 +119,15 @@ const PacientePDF = (paciente) => {
 
     }
 
-    const pdfFile = pdfMake.createPdf(docDefinition, null, null, pdfFonts.pdfMake.vfs);
+    const pdfCreate = async () => {
 
-    //pdfMake.createPdf(docDefinition).open();
-    pdfFile.download(`${paciente.apellido}-${paciente.nombre}-histClinica.pdf`);
+        const pdfFile = pdfMake.createPdf(docDefinition, null, null, pdfFonts.pdfMake.vfs);
+    
+        //pdfMake.createPdf(docDefinition).open();
+        await pdfFile.download(`${paciente.apellido}-${paciente.nombre}-histClinica.pdf`);
+    }
+
+    pdfCreate()
     
 }
 
