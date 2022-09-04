@@ -6,7 +6,7 @@ const PacientePDF = (paciente) => {
 
     const date = new Date(paciente.timestamp).toLocaleDateString()
     
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    window.pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
     const reportTitle = [
         {
@@ -122,7 +122,7 @@ const PacientePDF = (paciente) => {
     const pdfFile = pdfMake.createPdf(docDefinition, null, null, pdfFonts.pdfMake.vfs);
 
     //pdfMake.createPdf(docDefinition).open();
-    pdfFile.download(`${paciente.apellido} ${paciente.nombre}-histClinica.pdf`);
+    pdfFile.download(`${paciente.apellido}-${paciente.nombre}-histClinica.pdf`);
     
 }
 
