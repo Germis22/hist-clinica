@@ -6,7 +6,7 @@ const PacientePDF = (paciente) => {
 
     const date = new Date(paciente.timestamp).toLocaleDateString()
     
-    window.pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
     const reportTitle = [
         {
@@ -25,6 +25,7 @@ const PacientePDF = (paciente) => {
             fontSize: 15,
             bold: true,
             color: '#0F3460',
+            italics: true,
             alignment: 'right',
             margin: [0, 0, 0, 5]
         },
@@ -119,15 +120,11 @@ const PacientePDF = (paciente) => {
 
     }
 
-    const pdfCreate = async () => {
-
         const pdfFile = pdfMake.createPdf(docDefinition, null, null, pdfFonts.pdfMake.vfs);
     
         //pdfMake.createPdf(docDefinition).open();
-        await pdfFile.download(`${paciente.apellido}-${paciente.nombre}-histClinica.pdf`);
-    }
+        pdfFile.download(`${paciente.apellido}-${paciente.nombre}-histClinica.pdf`);
 
-    pdfCreate()
     
 }
 
