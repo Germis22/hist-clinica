@@ -5,8 +5,11 @@ import * as pdfFonts from "pdfmake/build/vfs_fonts";
 const PacientePDF = (paciente) => {
 
     const date = new Date(paciente.timestamp).toLocaleDateString()
-    
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+    const {vfs} = pdfFonts.pdfMake;
+	pdfMake.vfs = vfs;
+
+    //pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
     pdfMake.fonts = {
         Roboto: {
@@ -128,10 +131,12 @@ const PacientePDF = (paciente) => {
 
     }
 
-        const pdfFile = pdfMake.createPdf(docDefinition, null, null, pdfFonts.pdfMake.vfs);
+        //const pdfFile = pdfMake.createPdf(docDefinition, null, null, pdfFonts.pdfMake.vfs);
     
         //pdfMake.createPdf(docDefinition).open();
-        pdfFile.download(`${paciente.apellido}-${paciente.nombre}-histClinica.pdf`);
+        //pdfFile.download(`${paciente.apellido}-${paciente.nombre}-histClinica.pdf`);
+
+        pdfMake.createPdf(docDefinition).download(`${paciente.apellido}-${paciente.nombre}-histClinica.pdf`);
 
     
 }
