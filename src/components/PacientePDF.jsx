@@ -34,7 +34,6 @@ const PacientePDF = (paciente) => {
             fontSize: 15,
             bold: true,
             color: '#0F3460',
-            italics: true,
             alignment: 'right',
             margin: [0, 0, 0, 5]
         },
