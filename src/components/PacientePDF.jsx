@@ -8,6 +8,15 @@ const PacientePDF = (paciente) => {
     
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+    pdfMake.fonts = {
+        Roboto: {
+          normal: 'Roboto-Regular.ttf',
+          bold: 'Roboto-Medium.ttf',
+          italics: 'Roboto-Italic.ttf',
+          bolditalics: 'Roboto-MediumItalic.ttf'
+        }
+      };
+
     const reportTitle = [
         {
             text: 'CONSULTORIO PEDIATRICO',
