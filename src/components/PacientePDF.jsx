@@ -1,6 +1,7 @@
 import React from "react";
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import "../assets/Roboto-Medium.ttf";
 
 const PacientePDF = (paciente) => {
   const date = new Date(paciente.timestamp).toLocaleDateString();

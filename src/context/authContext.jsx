@@ -126,6 +126,7 @@ export function AuthProvider({ children }) {
         const que = query(
           pacientesCollectionRef,
           where("owner", "==", currentUser.uid),
+          where("isActive", "==", true),
           orderBy("apellido")
         );
 
