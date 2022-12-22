@@ -12,7 +12,7 @@
     "daisyui": "^2.20.0",
     "firebase": "^9.9.1",
     "path-browserify": "^1.0.1",
-    "pdfmake": "^0.2.5",
+    "pdfmake": "^0.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
@@ -20,6 +20,7 @@
     "typeface-roboto": "^1.1.13"
   },
   "devDependencies": {
+    "@types/pdfmake": "^0.2.2",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",

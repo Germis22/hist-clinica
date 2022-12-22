@@ -5,6 +5,11 @@ import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const Registros = () => {
+  const [error, setError] = useState();
+
+  const { addPaciente } = useAuth();
+
+  const navigate = useNavigate();
 
   const [paciente, setPaciente] = useState({
     nombre: "",
@@ -14,26 +19,20 @@ const Registros = () => {
     nacimiento: "",
     direccion: "",
     telefono: 0,
-    sintomas: ""
+    sintomas: "",
   });
 
-  const [error, setError] = useState()
-
-  const {addPaciente} = useAuth();
-
-  const navigate = useNavigate();
-
-  const handleChange = ({target: {id, value}}) => {
+  const handleChange = ({ target: { id, value } }) => {
     setPaciente({ ...paciente, [id]: value });
-  }
+  };
 
   const refreshPage = () => {
     window.location.reload(false);
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError("");
     try {
       await addPaciente(
         paciente.nombre,
@@ -45,13 +44,13 @@ const Registros = () => {
         paciente.telefono,
         paciente.sintomas
       );
-      navigate('/pacientes')
-      refreshPage()
+      navigate("/pacientes");
+      refreshPage();
     } catch (error) {
-      setError(error)
+      setError(error);
     }
     console.log(error);
-  }
+  };
 
   return (
     <div className="flex justify-center items-center h-full my-10">

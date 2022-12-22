@@ -1,46 +1,45 @@
-import { useState } from 'react'
-import { useAuth } from '../context/authContext';
+import { useState } from "react";
+import { useAuth } from "../context/authContext";
 
 const AddSintoma = (patient) => {
-
-  const pacienteId = patient.patient.id
-  const actualSintoma = patient.patient.sintomas
+  const pacienteId = patient.patient.id;
+  const actualSintoma = patient.patient.sintomas;
 
   const [paciente, setPaciente] = useState({
     regSintoma: "",
-    sintomas: ""
-    });
+    sintomas: "",
+  });
 
-  const date = new Date(paciente.regSintoma).toLocaleDateString('es-ES', {timeZone: 'UTC'})
+  const date = new Date(paciente.regSintoma).toLocaleDateString("es-ES", {
+    timeZone: "UTC",
+  });
 
-  const totalSintomas = actualSintoma + "\n\n" + date + ": " + paciente.sintomas;
+  const totalSintomas =
+    actualSintoma + "\n\n" + date + ": " + paciente.sintomas;
 
-  const [error, setError] = useState()
+  const [error, setError] = useState();
 
-  const {addSintoma} = useAuth();
+  const { addSintoma } = useAuth();
 
-  const handleChange = ({target: {id, value}}) => {
-  setPaciente({ ...paciente, [id]: value });
-  }
+  const handleChange = ({ target: { id, value } }) => {
+    setPaciente({ ...paciente, [id]: value });
+  };
 
   const refreshPage = () => {
     window.location.reload(false);
-  }
+  };
 
   const handleUpdate = async (e) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError("");
     try {
-      await addSintoma(
-        pacienteId,
-        totalSintomas
-      );
-      refreshPage()
+      await addSintoma(pacienteId, totalSintomas);
+      refreshPage();
     } catch (error) {
-      setError(error)
+      setError(error);
     }
     console.log(error);
-  }
+  };
 
   return (
     <>
@@ -61,53 +60,64 @@ const AddSintoma = (patient) => {
         </svg>
       </label>
 
-      <input type="checkbox" id={`${pacienteId}-add`} className="modal-toggle" />
+      <input
+        type="checkbox"
+        id={`${pacienteId}-add`}
+        className="modal-toggle"
+      />
       <div className="modal">
         <div className="modal-box w-11/12 max-w-5xl">
-        <div className="flex justify-center items-center h-full my-10">    
-          <form
-            className="w-full"
-          >
-            <p className=" text-2xl font-bold text-center mb-10 ">
-              Agregar Nuevo {""}
-              <span className=" text-info font-bold">Síntoma</span>
-            </p>
+          <div className="flex justify-center items-center h-full my-10">
+            <form className="w-full">
+              <p className=" text-2xl font-bold text-center mb-10 ">
+                Nueva {""}
+                <span className=" text-info font-bold">Consulta</span>
+              </p>
 
-            <div className="lg:w-4/5 md:w-full m-auto">
+              <div className="lg:w-4/5 md:w-full m-auto">
+                <div className="mb-5">
+                  <label
+                    htmlFor="regSintoma"
+                    className="block font-bold uppercase"
+                  >
+                    Fecha de Registro
+                  </label>
+                  <input
+                    id="regSintoma"
+                    type="date"
+                    max={new Date().toISOString().split("T")[0]}
+                    placeholder="Fecha de Registro"
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
 
-              <div className="mb-5">
-                <label htmlFor="regSintoma" className="block font-bold uppercase">
-                  Fecha de Registro
-                </label>
-                <input
-                  id="regSintoma"
-                  type="date"
-                  max={new Date().toISOString().split("T")[0]}
-                  placeholder="Fecha de Registro"
-                  onChange={handleChange}
-                  className="border-2 w-full p-2 mt-2 text-black placeholder:text-gray-400 rounded-md"
-                />
+                <div className="mb-5">
+                  <label
+                    htmlFor="sintomas"
+                    className="block font-bold uppercase"
+                  >
+                    Síntomas
+                  </label>
+                  <textarea
+                    id="sintomas"
+                    type="text"
+                    placeholder="Sintomas del Paciente"
+                    onChange={handleChange}
+                    className="border-2 w-full p-2 mt-2 h-56 text-black placeholder:text-gray-400 rounded-md"
+                  />
+                </div>
               </div>
-              
-              <div className="mb-5">
-                <label htmlFor="sintomas" className="block font-bold uppercase">
-                  Síntomas
-                </label>
-                <textarea
-                  id="sintomas"
-                  type="text"
-                  placeholder="Sintomas del Paciente"
-                  onChange={handleChange}
-                  className="border-2 w-full p-2 mt-2 h-56 text-black placeholder:text-gray-400 rounded-md"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
 
-        <div className="flex sm:justify-end justify-center">
+          <div className="flex sm:justify-end justify-center">
             <div className="modal-action mr-5">
-              <label htmlFor={`${pacienteId}-add`} className="btn" onClick={handleUpdate}>
+              <label
+                htmlFor={`${pacienteId}-add`}
+                className="btn"
+                onClick={handleUpdate}
+              >
                 Guardar
               </label>
             </div>
@@ -117,11 +127,10 @@ const AddSintoma = (patient) => {
               </label>
             </div>
           </div>
-
         </div>
       </div>
     </>
   );
-}
+};
 
-export default AddSintoma
+export default AddSintoma;

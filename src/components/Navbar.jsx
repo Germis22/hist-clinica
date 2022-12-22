@@ -1,22 +1,21 @@
-import { useEffect } from 'react'
-import { useAuth } from '../context/authContext'
-import { useNavigate } from 'react-router-dom'
-import { themeChange } from 'theme-change'
-import Avatar from '../assets/114296311-icono-de-avatar-de-doctor-logotipo-de-profesión-personaje-masculino-un-hombre-con-ropa-profesional-e.jpg'
+import { useEffect } from "react";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { themeChange } from "theme-change";
+import Avatar from "../assets/114296311-icono-de-avatar-de-doctor-logotipo-de-profesión-personaje-masculino-un-hombre-con-ropa-profesional-e.jpg";
 
 const Navbar = () => {
-
-  const {user, logout, loading} = useAuth() 
-  const navigate = useNavigate()
+  const { user, logout, loading } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login')
-  }
+    navigate("/login");
+  };
 
   useEffect(() => {
-    themeChange(false)
-  }, [])
+    themeChange(false);
+  }, []);
 
   return (
     <div className="navbar bg-base-300 shadow-lg static">
@@ -43,32 +42,35 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a href="/registros">Registrar Paciente</a>
+              <a onClick={() => navigate("/registros")}>Registrar Paciente</a>
             </li>
 
             <li>
-              <a href="/pacientes">Pacientes</a>
+              <a onClick={() => navigate("/pacientes")}>Pacientes</a>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl" href="/">
+        <a
+          className="btn btn-ghost normal-case text-xl"
+          onClick={() => navigate("/")}
+        >
           Historia Clinica
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <a href="/registros">Registrar Paciente</a>
+            <a onClick={() => navigate("/registros")}>Registrar Paciente</a>
           </li>
 
           <li>
-            <a href="/pacientes">Pacientes</a>
+            <a onClick={() => navigate("/pacientes")}>Pacientes</a>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
         <label className="swap swap-rotate mx-3">
-          <input data-act-class="ACTIVECLASS"  type="checkbox" />
+          <input data-act-class="ACTIVECLASS" type="checkbox" />
 
           <svg
             className="swap-on swap-active fill-current w-7 h-7"
@@ -118,6 +120,6 @@ const Navbar = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
