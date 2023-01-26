@@ -6,7 +6,8 @@ import "../assets/Roboto-Medium.ttf";
 const PacientePDF = (paciente) => {
   const date = new Date(paciente.timestamp).toLocaleDateString();
 
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  // pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  pdfMake.vfs = pdfFonts.pdfMake ? pdfFonts.pdfMake.vfs : pdfMake.vfs;
 
   const reportTitle = [
     {
